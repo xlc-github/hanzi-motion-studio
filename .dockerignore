@@ -1,0 +1,21 @@
+# 版本控制与文档
+.git
+.gitignore
+*.md
+docs/
+references/
+
+# 前端本地依赖与构建产物（镜像内重新构建）
+frontend/node_modules/
+frontend/dist/
+
+# 后端运行时产物（容器内有独立 volume）
+backend/storage/
+backend/.pytest_cache/
+backend/__pycache__/
+**/__pycache__/
+**/*.pyc
+backend/tests/_e2e_out/
+
+# 本地启动脚本
+start.bat

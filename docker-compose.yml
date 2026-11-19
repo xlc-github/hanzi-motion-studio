@@ -1,0 +1,22 @@
+services:
+  hanzi-motion-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hanzi-motion-studio:latest
+    container_name: hanzi-motion-studio
+    ports:
+      - "8100:8100"
+    volumes:
+      # 持久化 SQLite 数据库与导出产物，容器重建不丢数据
+      - studio_storage:/app/backend/storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  studio_storage:
